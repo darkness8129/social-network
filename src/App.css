@@ -8,5 +8,9 @@
     grid-template-areas:
         'header header'
         'navbar content';
-    gap: 20px;
+    gap: 10px;
+}
+
+.content {
+    grid-area: content;
 }

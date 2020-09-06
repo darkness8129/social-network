@@ -1,0 +1,21 @@
+.navbar {
+    grid-area: navbar;
+    background-color: lightblue;
+    padding: 0;
+}
+
+.list {
+    margin: 0;
+    padding: 20px;
+}
+
+.item {
+    list-style-type: none;
+    margin: 10px 0;
+}
+
+.item a {
+    color: white;
+    font-size: 20px;
+    text-decoration: none;
+}

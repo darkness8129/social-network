@@ -1,0 +1,21 @@
+.avatar {
+    width: 100px;
+}
+
+.myInfo {
+    display: flex;
+    margin-top: 10px;
+}
+
+.item {
+    margin-left: 20px;
+}
+
+.infoList {
+    margin: 0;
+    padding: 0;
+}
+
+.infoList li {
+    list-style-type: none;
+}
