@@ -10,26 +10,3 @@
         'navbar content';
     gap: 20px;
 }
-
-.header {
-    grid-area: header;
-    background: yellow;
-}
-
-.header img {
-    height: 100%;
-}
-
-.navbar {
-    grid-area: navbar;
-    background: red;
-}
-
-.content {
-    grid-area: content;
-    background: orange;
-}
-
-.content img {
-    width: 100%;
-}
