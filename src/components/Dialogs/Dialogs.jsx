@@ -4,23 +4,29 @@ import styles from './Dialogs.module.css';
 import DialogsItem from './DialogsItem/DialogsItem';
 import Message from './Message/Message';
 
-const Dialogs = () => {
+const Dialogs = ({ dialogs, messages }) => {
     return (
         <div className={styles.dialogs}>
             <div className={styles.dialogsItems}>
-                <DialogsItem name='Sasha' id={1} />
-                <DialogsItem name='Katya' id={2} />
-                <DialogsItem name='Olya' id={3} />
-                <DialogsItem name='Oleg' id={4} />
-                <DialogsItem name='Dima' id={5} />
-                <DialogsItem name='Lena' id={6} />
-                <DialogsItem name='Maksym' id={7} />
+                {dialogs.map((dialog) => {
+                    return (
+                        <DialogsItem
+                            name={dialog.name}
+                            id={dialog.id}
+                            key={dialog.id}
+                        />
+                    );
+                })}
             </div>
             <div className={styles.messages}>
-                <Message messageText='Hello!' />
-                <Message messageText='Hi!' />
-                <Message messageText='How are you?' />
-                <Message messageText='I am fine.' />
+                {messages.map((message) => {
+                    return (
+                        <Message
+                            messageText={message.messageText}
+                            key={message.id}
+                        />
+                    );
+                })}
             </div>
         </div>
     );

@@ -9,15 +9,15 @@ import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
 import { Route, BrowserRouter } from 'react-router-dom';
 
-const App = () => {
+const App = ({ dialogs, messages, posts }) => {
     return (
         <BrowserRouter>
             <div className="app">
                 <Header />
                 <Navbar />
                 <div className="content">
-                    <Route path='/profile' component={Profile} />
-                    <Route exact path='/dialogs' component={Dialogs} />
+                    <Route path='/profile' render={() => <Profile posts={posts} />} />
+                    <Route exact path='/dialogs' component={() => <Dialogs dialogs={dialogs} messages={messages} />} />
                     <Route path='/news' component={News} />
                     <Route path='/music' component={Music} />
                     <Route path='/settings' component={Settings} />

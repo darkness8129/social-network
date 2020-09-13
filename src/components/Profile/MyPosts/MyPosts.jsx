@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './MyPosts.module.css';
 import Post from './Post/Post';
 
-const MyPosts = () => {
+const MyPosts = ({ posts }) => {
     return (
         <div>
             <h2 className='title'>My posts</h2>
@@ -12,9 +12,9 @@ const MyPosts = () => {
                 className={styles.postInput}
             />
             <div>
-                <Post postText='Test post 1' />
-                <Post postText='Test post 2' />
-                <Post postText='Test post 3' />
+                {posts.map((post) => {
+                    return <Post postText={post.postText} key={post.id} />;
+                })}
             </div>
         </div>
     );

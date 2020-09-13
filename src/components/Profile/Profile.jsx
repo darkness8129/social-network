@@ -4,12 +4,12 @@ import MyPosts from './MyPosts/MyPosts';
 import MyInfo from './MyInfo/MyInfo';
 import Background from './Background/Background';
 
-const Profile = () => {
+const Profile = ({ posts }) => {
     return (
         <div>
             <Background />
             <MyInfo />
-            <MyPosts />
+            <MyPosts posts={posts} />
         </div>
     );
 };
