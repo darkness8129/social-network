@@ -2,6 +2,7 @@
     grid-area: navbar;
     background-color: lightblue;
     padding: 0;
+    min-height: calc(100vh - 70px);
 }
 
 .list {
@@ -18,4 +19,8 @@
     color: white;
     font-size: 20px;
     text-decoration: none;
+}
+
+.item a.active {
+    color: gray;
 }
