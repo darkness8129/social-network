@@ -8,16 +8,18 @@ import News from './components/News/News';
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
 import { Route, BrowserRouter } from 'react-router-dom';
+import { changePostText } from './redux/state';
 
-const App = ({ dialogs, messages, posts }) => {
+const App = ({ state, dispatch }) => {
     return (
         <BrowserRouter>
             <div className="app">
                 <Header />
                 <Navbar />
                 <div className="content">
-                    <Route path='/profile' render={() => <Profile posts={posts} />} />
-                    <Route exact path='/dialogs' component={() => <Dialogs dialogs={dialogs} messages={messages} />} />
+                    <Route path='/profile' render={() => <Profile state={state.profilePage}
+                        dispatch={dispatch} />} />
+                    <Route exact path='/dialogs' component={() => <Dialogs state={state.dialogsPage} />} />
                     <Route path='/news' component={News} />
                     <Route path='/music' component={Music} />
                     <Route path='/settings' component={Settings} />
