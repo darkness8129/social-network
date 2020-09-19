@@ -16,10 +16,11 @@ const App = ({ state, dispatch }) => {
             <div className="app">
                 <Header />
                 <Navbar />
+
                 <div className="content">
                     <Route path='/profile' render={() => <Profile state={state.profilePage}
                         dispatch={dispatch} />} />
-                    <Route exact path='/dialogs' component={() => <Dialogs state={state.dialogsPage} />} />
+                    <Route exact path='/dialogs' render={() => <Dialogs state={state.dialogsPage} dispatch={dispatch} />} />
                     <Route path='/news' component={News} />
                     <Route path='/music' component={Music} />
                     <Route path='/settings' component={Settings} />

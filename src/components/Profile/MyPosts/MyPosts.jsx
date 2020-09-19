@@ -1,17 +1,21 @@
 import React from 'react';
 import styles from './MyPosts.module.css';
 import Post from './Post/Post';
+import {
+    addPostActionCreator,
+    changeNewPostTextActionCreator,
+} from './../../../redux/state';
 
 const MyPosts = ({ posts, newPostText, dispatch }) => {
     const textArea = React.createRef();
 
     const handleAddPost = () => {
-        dispatch({ type: 'ADD_POST' });
+        dispatch(addPostActionCreator());
     };
 
-    const handlePostTextChange = () => {
+    const handleNewPostTextChange = () => {
         let text = textArea.current.value;
-        dispatch({ type: 'CHANGE_POST_TEXT', text: text });
+        dispatch(changeNewPostTextActionCreator(text));
     };
 
     return (
@@ -21,7 +25,7 @@ const MyPosts = ({ posts, newPostText, dispatch }) => {
                 placeholder='your news...'
                 className={styles.postInput}
                 ref={textArea}
-                onChange={handlePostTextChange}
+                onChange={handleNewPostTextChange}
                 value={newPostText}
             />
             <button onClick={handleAddPost}>Add post</button>
