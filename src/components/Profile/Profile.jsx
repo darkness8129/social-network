@@ -1,19 +1,15 @@
 import React from 'react';
 import styles from './Profile.module.css';
-import MyPosts from './MyPosts/MyPosts';
+import MyPostsContainer from './MyPosts/MyPostsContainer';
 import MyInfo from './MyInfo/MyInfo';
 import Background from './Background/Background';
 
-const Profile = ({ state, dispatch }) => {
+const Profile = ({ store }) => {
     return (
         <div>
             <Background />
             <MyInfo />
-            <MyPosts
-                posts={state.posts}
-                newPostText={state.newPostText}
-                dispatch={dispatch}
-            />
+            <MyPostsContainer store={store} />
         </div>
     );
 };
