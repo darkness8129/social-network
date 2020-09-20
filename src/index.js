@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import './index.css';
-import store from './redux/state';
+import store from './redux/reduxStore';
 
 let rerender = (state) => {
     ReactDOM.render(
@@ -12,5 +12,10 @@ let rerender = (state) => {
         document.getElementById('root')
     );
 }
+
 rerender(store.getState());
-store.subscribe(rerender);
+
+store.subscribe(() => {
+    const state = store.getState();
+    rerender(state);
+});

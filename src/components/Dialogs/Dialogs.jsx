@@ -5,7 +5,7 @@ import Message from './Message/Message';
 import {
     sendMessageActionCreator,
     changeNewMessageTextActionCreator,
-} from './../../redux/state';
+} from './../../redux/dialogsReducer';
 
 const Dialogs = ({ state, dispatch }) => {
     const dialogs = state.dialogs.map((dialog) => {
@@ -24,9 +24,8 @@ const Dialogs = ({ state, dispatch }) => {
         dispatch(sendMessageActionCreator());
     };
 
-    const handleChangeNewMessageText = () => {
-        //debugger;
-        let messageText = textAreaMessage.current.value;
+    const handleChangeNewMessageText = (e) => {
+        let messageText = e.target.value;
         dispatch(changeNewMessageTextActionCreator(messageText));
     };
 
