@@ -9,7 +9,7 @@ const Profile = ({ store }) => {
         <div>
             <Background />
             <MyInfo />
-            <MyPostsContainer store={store} />
+            <MyPostsContainer />
         </div>
     );
 };

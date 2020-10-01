@@ -7,24 +7,22 @@ import DialogsContainer from './components/Dialogs/DialogsContainer';
 import News from './components/News/News';
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
-import { Route, BrowserRouter } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 
-const App = ({ store }) => {
+const App = () => {
     return (
-        <BrowserRouter>
-            <div className="app">
-                <Header />
-                <Navbar />
+        <div className="app">
+            <Header />
+            <Navbar />
 
-                <div className="content">
-                    <Route path='/profile' render={() => <Profile store={store} />} />
-                    <Route exact path='/dialogs' render={() => <DialogsContainer store={store} />} />
-                    <Route path='/news' component={News} />
-                    <Route path='/music' component={Music} />
-                    <Route path='/settings' component={Settings} />
-                </div>
+            <div className="content">
+                <Route path='/profile' render={() => <Profile />} />
+                <Route exact path='/dialogs' render={() => <DialogsContainer />} />
+                <Route path='/news' component={News} />
+                <Route path='/music' component={Music} />
+                <Route path='/settings' component={Settings} />
             </div>
-        </BrowserRouter>
+        </div>
     );
 }
 
