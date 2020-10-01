@@ -1,5 +1,4 @@
-const SEND_MESSAGE = 'SEND_MESSAGE';
-const CHANGE_NEW_MESSAGE_TEXT = 'CHANGE_NEW_MESSAGE_TEXT';
+import * as ActionTypes from './actionTypes';
 
 const initialState = {
     dialogs: [
@@ -22,20 +21,17 @@ const initialState = {
 
 const dialogsReducer = (state = initialState, action) => {
     switch (action.type) {
-        case SEND_MESSAGE:
+        case ActionTypes.SEND_MESSAGE:
             return {
                 ...state,
                 messages: [...state.messages, { messageText: state.newMessageText, id: 4 }],
                 newMessageText: ''
             };
-        case CHANGE_NEW_MESSAGE_TEXT:
+        case ActionTypes.CHANGE_NEW_MESSAGE_TEXT:
             return { ...state, newMessageText: action.messageText };
         default:
             return state;
     }
 }
-
-export const sendMessageActionCreator = () => ({ type: SEND_MESSAGE });
-export const changeNewMessageTextActionCreator = (messageText) => ({ type: CHANGE_NEW_MESSAGE_TEXT, messageText: messageText });
 
 export default dialogsReducer;
