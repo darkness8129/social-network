@@ -24,3 +24,11 @@ export const setUsersActionCreator = (users) => ({
     type: ActionTypes.SET_USERS,
     users: users
 });
+export const setCurrentPageActionCreator = (currentPage) => ({
+    type: ActionTypes.SET_CURRENT_PAGE,
+    currentPage: currentPage
+});
+export const setTotalUsersCountActionCreator = (totalCount) => ({
+    type: ActionTypes.SET_TOTAL_USERS_COUNT,
+    totalCount: totalCount
+});
