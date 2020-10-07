@@ -4,12 +4,12 @@ import Users from './Users';
 import Preloader from './../Preloader/Preloader';
 import * as axios from 'axios';
 import {
-    followActionCreator,
-    unfollowActionCreator,
-    setUsersActionCreator,
-    setTotalUsersCountActionCreator,
-    setCurrentPageActionCreator,
-    setIsLoadingActionCreator,
+    follow,
+    unfollow,
+    setUsers,
+    setTotalUsersCount,
+    setCurrentPage,
+    setIsLoading,
 } from './../../redux/actionCreators';
 
 class UsersContainer extends React.Component {
@@ -71,18 +71,11 @@ const mapStateToProps = (state) => {
     };
 };
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        follow: (userId) => dispatch(followActionCreator(userId)),
-        unfollow: (userId) => dispatch(unfollowActionCreator(userId)),
-        setUsers: (users) => dispatch(setUsersActionCreator(users)),
-        setTotalUsersCount: (totalCount) =>
-            dispatch(setTotalUsersCountActionCreator(totalCount)),
-        setCurrentPage: (currentPage) =>
-            dispatch(setCurrentPageActionCreator(currentPage)),
-        setIsLoading: (isLoading) =>
-            dispatch(setIsLoadingActionCreator(isLoading)),
-    };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer);
+export default connect(mapStateToProps, {
+    follow,
+    unfollow,
+    setUsers,
+    setTotalUsersCount,
+    setCurrentPage,
+    setIsLoading,
+})(UsersContainer);

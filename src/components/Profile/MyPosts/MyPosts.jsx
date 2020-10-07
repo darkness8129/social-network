@@ -2,10 +2,10 @@ import React from 'react';
 import styles from './MyPosts.module.css';
 import Post from './Post/Post';
 
-const MyPosts = ({ posts, newPostText, addPost, changePostText }) => {
+const MyPosts = ({ posts, newPostText, addPost, changeNewPostText }) => {
     const handleNewPostTextChange = (e) => {
         let text = e.target.value;
-        changePostText(text);
+        changeNewPostText(text);
     };
 
     return (

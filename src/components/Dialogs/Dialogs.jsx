@@ -6,7 +6,7 @@ const Dialogs = ({
     dialogs,
     messages,
     sendMessage,
-    changeMessageText,
+    changeNewMessageText,
     newMessageText,
 }) => {
     const dialogsItems = dialogs.map((dialog) => {
@@ -25,7 +25,7 @@ const Dialogs = ({
 
     const handleChangeNewMessageText = (e) => {
         let messageText = e.target.value;
-        changeMessageText(messageText);
+        changeNewMessageText(messageText);
     };
 
     return (

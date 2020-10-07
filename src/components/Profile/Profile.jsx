@@ -3,12 +3,15 @@ import styles from './Profile.module.css';
 import MyPostsContainer from './MyPosts/MyPostsContainer';
 import MyInfo from './MyInfo/MyInfo';
 import Background from './Background/Background';
+import Preloader from '../Preloader/Preloader';
 
-const Profile = ({ store }) => {
-    return (
+const Profile = ({ userProfile }) => {
+    return !userProfile ? (
+        <Preloader />
+    ) : (
         <div>
             <Background />
-            <MyInfo />
+            <MyInfo userProfile={userProfile} />
             <MyPostsContainer />
         </div>
     );
