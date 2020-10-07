@@ -4,7 +4,8 @@ const initialState = {
     users: [],
     currentPage: 1,
     pageSize: 5,
-    totalUsersCount: 0
+    totalUsersCount: 0,
+    isLoading: false
 }
 
 const usersReducer = (state = initialState, action) => {
@@ -33,6 +34,8 @@ const usersReducer = (state = initialState, action) => {
             return { ...state, currentPage: action.currentPage }
         case ActionTypes.SET_TOTAL_USERS_COUNT:
             return { ...state, totalUsersCount: action.totalCount }
+        case ActionTypes.SET_IS_LOADING:
+            return { ...state, isLoading: action.isLoading }
         default:
             return state;
     }
