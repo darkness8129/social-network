@@ -11,7 +11,9 @@ const MyInfoText = ({
     let contactsItems = [];
     for (let key in contacts) {
         contactsItems.push(
-            <li>{contacts[key] && <a href={contacts[key]}>{key}</a>}</li>
+            <li key={key}>
+                {contacts[key] && <a href={contacts[key]}>{key}</a>}
+            </li>
         );
     }
 

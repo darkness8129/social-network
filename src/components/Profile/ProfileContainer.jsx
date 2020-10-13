@@ -1,30 +1,46 @@
-import axios from 'axios';
 import React from 'react';
 import { connect } from 'react-redux';
-import { setUserProfile } from '../../redux/actionCreators';
+import { withRouter } from 'react-router-dom';
+import {
+    setUserProfile,
+    setProfileIsLoading,
+} from '../../redux/actionCreators';
 import Profile from './Profile';
+import Preloader from '../Preloader/Preloader';
+import userApi from '../../api/api';
 
 class ProfileContainer extends React.Component {
     componentDidMount() {
-        axios
-            .get(`https://social-network.samuraijs.com/api/1.0/profile/2`)
-            .then((response) => {
-                debugger;
-                this.props.setUserProfile(response.data);
-            });
+        this.props.setProfileIsLoading(true);
+        const userId = this.props.match.params.userId
+            ? this.props.match.params.userId
+            : 2;
+
+        userApi.getUserProfile(userId).then((data) => {
+            this.props.setProfileIsLoading(false);
+            this.props.setUserProfile(data);
+        });
     }
 
     render() {
-        return <Profile userProfile={this.props.userProfile} />;
+        return this.props.isLoading ? (
+            <Preloader />
+        ) : (
+            <Profile userProfile={this.props.userProfile} />
+        );
     }
 }
 
 const mapDispatchToProps = (state) => {
     return {
         userProfile: state.profilePage.userProfile,
+        isLoading: state.profilePage.isLoading,
     };
 };
 
-export default connect(mapDispatchToProps, { setUserProfile })(
-    ProfileContainer
-);
+let a = withRouter(ProfileContainer);
+
+export default connect(mapDispatchToProps, {
+    setUserProfile,
+    setProfileIsLoading,
+})(a);

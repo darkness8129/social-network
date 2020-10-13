@@ -1,3 +1,4 @@
+import { act } from 'react-dom/test-utils';
 import * as ActionTypes from './actionTypes';
 
 const initialState = {
@@ -5,7 +6,8 @@ const initialState = {
     currentPage: 1,
     pageSize: 5,
     totalUsersCount: 0,
-    isLoading: false
+    isLoading: false,
+    followingInProgress: []
 }
 
 const usersReducer = (state = initialState, action) => {
@@ -36,6 +38,13 @@ const usersReducer = (state = initialState, action) => {
             return { ...state, totalUsersCount: action.totalCount }
         case ActionTypes.SET_IS_LOADING:
             return { ...state, isLoading: action.isLoading }
+        case ActionTypes.TOGGLE_FOLLOWING_IN_PROGRESS:
+            return {
+                ...state,
+                followingInProgress: action.isLoading
+                    ? [...state.followingInProgress, action.userId]
+                    : state.followingInProgress.filter(userId => userId != action.userId)
+            }
         default:
             return state;
     }
