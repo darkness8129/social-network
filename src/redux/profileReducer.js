@@ -33,7 +33,6 @@ const profileReducer = (state = initialState, action) => {
 
 export const getUserProfile = userId => dispatch => {
     dispatch(setProfileIsLoading(true));
-    debugger
     usersApi.getUserProfile(userId).then((data) => {
         dispatch(setProfileIsLoading(false));
         dispatch(setUserProfile(data));

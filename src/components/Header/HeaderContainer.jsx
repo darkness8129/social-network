@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 class HeaderContainer extends React.Component {
     componentDidMount() {
         this.props.getAuth();
+        console.log('h redirect');
     }
 
     render() {

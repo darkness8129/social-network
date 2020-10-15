@@ -9,9 +9,12 @@ const initialState = {
     isAuth: false
 };
 
-const profileReducer = (state = initialState, action) => {
+const authReducer = (state = initialState, action) => {
     switch (action.type) {
         case ActionTypes.SET_USER_AUTH:
+            console.log('in red');
+
+            ;
             return { ...state, ...action.data, isAuth: true };
         default:
             return state;
@@ -20,9 +23,10 @@ const profileReducer = (state = initialState, action) => {
 
 export const getAuth = () => (dispatch) => {
     usersApi.getAuth().then((data) => {
+
         const { id, email, login } = data.data;
         dispatch(setUserAuth(id, email, login));
     });
 }
 
-export default profileReducer;
+export default authReducer;
