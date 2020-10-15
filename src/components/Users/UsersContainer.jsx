@@ -3,15 +3,10 @@ import { connect } from 'react-redux';
 import Users from './Users';
 import Preloader from './../Preloader/Preloader';
 import {
-    follow,
-    unfollow,
-    setUsers,
-    setTotalUsersCount,
     setCurrentPage,
-    setIsLoading,
     toggleFollowingInProgress,
 } from './../../redux/actionCreators';
-import userApi from '../../api/api';
+import { getUsers, follow, unfollow } from '../../redux/usersReducer';
 
 class UsersContainer extends React.Component {
     constructor(props) {
@@ -21,25 +16,12 @@ class UsersContainer extends React.Component {
     }
 
     componentDidMount() {
-        this.props.setIsLoading(true);
-        userApi
-            .getUsers(this.props.currentPage, this.props.pageSize)
-            .then((data) => {
-                this.props.setUsers(data.items);
-                this.props.setTotalUsersCount(data.totalCount);
-                this.props.setIsLoading(false);
-            });
+        this.props.getUsers(this.props.currentPage, this.props.pageSize);
     }
 
     onPageChange(page) {
         this.props.setCurrentPage(page);
-        this.props.setIsLoading(true);
-
-        userApi.getUsers(page, this.props.pageSize).then((data) => {
-            this.props.setUsers(data.items);
-            this.props.setTotalUsersCount(data.totalCount);
-            this.props.setIsLoading(false);
-        });
+        this.props.getUsers(page, this.props.pageSize);
     }
 
     render() {
@@ -75,9 +57,7 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, {
     follow,
     unfollow,
-    setUsers,
-    setTotalUsersCount,
     setCurrentPage,
-    setIsLoading,
     toggleFollowingInProgress,
+    getUsers,
 })(UsersContainer);

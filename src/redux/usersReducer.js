@@ -1,5 +1,6 @@
-import { act } from 'react-dom/test-utils';
+import { setIsLoading, setTotalUsersCount, setUsers, toggleFollowingInProgress, followSuccess, unfollowSuccess } from './actionCreators';
 import * as ActionTypes from './actionTypes';
+import usersApi from '../api/api';
 
 const initialState = {
     users: [],
@@ -43,11 +44,51 @@ const usersReducer = (state = initialState, action) => {
                 ...state,
                 followingInProgress: action.isLoading
                     ? [...state.followingInProgress, action.userId]
-                    : state.followingInProgress.filter(userId => userId != action.userId)
+                    : state.followingInProgress.filter(userId => userId !== action.userId)
             }
         default:
             return state;
     }
+}
+
+export const getUsers = (currentPage, pageSize) => (dispatch) => {
+    dispatch(setIsLoading(true));
+
+    usersApi
+        .getUsers(currentPage, pageSize)
+        .then((data) => {
+            dispatch(setUsers(data.items));
+            dispatch(setTotalUsersCount(data.totalCount));
+            dispatch(setIsLoading(false));
+        });
+}
+
+export const follow = userId => dispatch => {
+    dispatch(toggleFollowingInProgress(true, userId));
+
+    usersApi.follow(userId).then((data) => {
+        if (data.resultCode === 0) {
+            dispatch(followSuccess(userId));
+        }
+        dispatch(toggleFollowingInProgress(
+            false,
+            userId
+        ));
+    });
+}
+
+export const unfollow = userId => dispatch => {
+    dispatch(toggleFollowingInProgress(true, userId));
+
+    usersApi.unfollow(userId).then((data) => {
+        if (data.resultCode === 0) {
+            dispatch(unfollowSuccess(userId));
+        }
+        dispatch(toggleFollowingInProgress(
+            false,
+            userId
+        ));
+    });
 }
 
 export default usersReducer;

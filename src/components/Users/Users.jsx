@@ -1,8 +1,7 @@
-import React, { useReducer } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import userPlaceholder from './../../assets/placeholder-user.jpg';
 import styles from './Users.module.css';
-import userApi from '../../api/api';
 
 const Users = ({
     totalUsersCount,
@@ -13,7 +12,6 @@ const Users = ({
     follow,
     unfollow,
     followingInProgress,
-    toggleFollowingInProgress,
 }) => {
     const numberOfPages = Math.ceil(totalUsersCount / pageSize);
 
@@ -30,7 +28,7 @@ const Users = ({
                     <span
                         key={btn}
                         onClick={() => onPageChange(btn)}
-                        className={currentPage === btn && styles.active}
+                        className={currentPage === btn ? styles.active : null}
                     >
                         {btn}
                     </span>
@@ -38,7 +36,7 @@ const Users = ({
             })}
             {users.map((user) => {
                 return (
-                    <div>
+                    <div key={user.id}>
                         <Link to={`/profile/${user.id}`}>
                             <img
                                 src={
@@ -59,16 +57,7 @@ const Users = ({
                         {user.followed === true ? (
                             <button
                                 onClick={() => {
-                                    toggleFollowingInProgress(true, user.id);
-                                    userApi.unfollow(user.id).then((data) => {
-                                        if (data.resultCode === 0) {
-                                            unfollow(user.id);
-                                        }
-                                        toggleFollowingInProgress(
-                                            false,
-                                            user.id
-                                        );
-                                    });
+                                    unfollow(user.id);
                                 }}
                                 disabled={followingInProgress.some(
                                     (id) => id === user.id
@@ -79,16 +68,7 @@ const Users = ({
                         ) : (
                             <button
                                 onClick={() => {
-                                    toggleFollowingInProgress(true, user.id);
-                                    userApi.follow(user.id).then((data) => {
-                                        if (data.resultCode === 0) {
-                                            follow(user.id);
-                                        }
-                                        toggleFollowingInProgress(
-                                            false,
-                                            user.id
-                                        );
-                                    });
+                                    follow(user.id);
                                 }}
                                 disabled={followingInProgress.some(
                                     (id) => id === user.id

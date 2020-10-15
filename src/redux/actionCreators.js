@@ -24,11 +24,11 @@ export const setProfileIsLoading = (isLoading) => ({
 });
 
 //users
-export const follow = (userId) => ({
+export const followSuccess = (userId) => ({
     type: ActionTypes.FOLLOW,
     userId
 });
-export const unfollow = (userId) => ({
+export const unfollowSuccess = (userId) => ({
     type: ActionTypes.UNFOLLOW,
     userId
 });

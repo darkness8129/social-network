@@ -1,5 +1,6 @@
 import * as ActionTypes from './actionTypes';
-
+import { setProfileIsLoading, setUserProfile } from './actionCreators';
+import usersApi from './../api/api';
 const initialState = {
     posts: [
         { postText: 'Test post 1', id: 1 },
@@ -28,6 +29,16 @@ const profileReducer = (state = initialState, action) => {
         default:
             return state;
     }
+}
+
+export const getUserProfile = userId => dispatch => {
+    dispatch(setProfileIsLoading(true));
+    debugger
+    usersApi.getUserProfile(userId).then((data) => {
+        dispatch(setProfileIsLoading(false));
+        dispatch(setUserProfile(data));
+
+    });
 }
 
 export default profileReducer;

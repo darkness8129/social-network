@@ -9,7 +9,7 @@ const instance = axios.create({
     },
 })
 
-const userApi = {
+const usersApi = {
     getUsers(currentPage = 1, pageSize = 5) {
         return instance
             .get(
@@ -49,4 +49,4 @@ const userApi = {
     }
 }
 
-export default userApi;
+export default usersApi;

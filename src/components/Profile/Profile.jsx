@@ -5,7 +5,10 @@ import MyInfo from './MyInfo/MyInfo';
 import Background from './Background/Background';
 import Preloader from '../Preloader/Preloader';
 
-const Profile = ({ userProfile }) => {
+import { Redirect } from 'react-router-dom';
+
+const Profile = ({ userProfile, isAuth }) => {
+    if (!isAuth) return <Redirect to='/login' />;
     return !userProfile ? (
         <Preloader />
     ) : (
