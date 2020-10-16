@@ -1,6 +1,6 @@
 import * as ActionTypes from './actionTypes';
 import { setUserAuth } from './actionCreators';
-import usersApi from './../api/api';
+import { authApi } from './../api/api';
 
 const initialState = {
     userId: null,
@@ -12,9 +12,6 @@ const initialState = {
 const authReducer = (state = initialState, action) => {
     switch (action.type) {
         case ActionTypes.SET_USER_AUTH:
-            console.log('in red');
-
-            ;
             return { ...state, ...action.data, isAuth: true };
         default:
             return state;
@@ -22,8 +19,7 @@ const authReducer = (state = initialState, action) => {
 }
 
 export const getAuth = () => (dispatch) => {
-    usersApi.getAuth().then((data) => {
-
+    authApi.getAuth().then((data) => {
         const { id, email, login } = data.data;
         dispatch(setUserAuth(id, email, login));
     });

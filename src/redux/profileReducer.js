@@ -1,6 +1,6 @@
 import * as ActionTypes from './actionTypes';
-import { setProfileIsLoading, setUserProfile } from './actionCreators';
-import usersApi from './../api/api';
+import { setProfileIsLoading, setUserProfile, setUserStatus } from './actionCreators';
+import { userProfileApi } from './../api/api';
 const initialState = {
     posts: [
         { postText: 'Test post 1', id: 1 },
@@ -9,7 +9,8 @@ const initialState = {
     ],
     newPostText: '',
     userProfile: null,
-    isLoading: false
+    isLoading: false,
+    userStatus: ''
 };
 
 const profileReducer = (state = initialState, action) => {
@@ -26,6 +27,8 @@ const profileReducer = (state = initialState, action) => {
             return { ...state, userProfile: action.userProfile };
         case ActionTypes.SET_PROFILE_IS_LOADING:
             return { ...state, isLoading: action.isLoading };
+        case ActionTypes.SET_USER_STATUS:
+            return { ...state, userStatus: action.userStatus };
         default:
             return state;
     }
@@ -33,11 +36,24 @@ const profileReducer = (state = initialState, action) => {
 
 export const getUserProfile = userId => dispatch => {
     dispatch(setProfileIsLoading(true));
-    usersApi.getUserProfile(userId).then((data) => {
+    userProfileApi.getUserProfile(userId).then((data) => {
         dispatch(setProfileIsLoading(false));
         dispatch(setUserProfile(data));
-
     });
+}
+
+export const getUserStatus = userId => dispatch => {
+    userProfileApi.getStatus(userId).then((data) => {
+        dispatch(setUserStatus(data));
+    })
+}
+
+export const updateUserStatus = (status) => (dispatch) => {
+    userProfileApi.updateStatus(status).then((data) => {
+        if (data.resultCode === 0) {
+            dispatch(setUserStatus(status));
+        }
+    })
 }
 
 export default profileReducer;

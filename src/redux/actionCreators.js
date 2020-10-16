@@ -23,6 +23,11 @@ export const setProfileIsLoading = (isLoading) => ({
     isLoading
 });
 
+export const setUserStatus = (userStatus) => ({
+    type: ActionTypes.SET_USER_STATUS,
+    userStatus
+});
+
 //users
 export const followSuccess = (userId) => ({
     type: ActionTypes.FOLLOW,

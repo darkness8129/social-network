@@ -5,6 +5,7 @@ export const SET_USER_PROFILE = 'SET_USER_PROFILE';
 export const ADD_POST = 'ADD_POST';
 export const CHANGE_NEW_POST_TEXT = 'CHANGE_NEW_POST_TEXT';
 export const SET_PROFILE_IS_LOADING = 'SET_PROFILE_IS_LOADING';
+export const SET_USER_STATUS = 'SET_USER_STATUS';
 
 export const FOLLOW = 'FOLLOW';
 export const UNFOLLOW = 'UNFOLLOW';

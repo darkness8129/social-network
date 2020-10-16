@@ -5,13 +5,17 @@ import MyInfo from './MyInfo/MyInfo';
 import Background from './Background/Background';
 import Preloader from '../Preloader/Preloader';
 
-const Profile = ({ userProfile }) => {
+const Profile = ({ userProfile, userStatus, updateUserStatus }) => {
     return !userProfile ? (
         <Preloader />
     ) : (
         <div>
             <Background />
-            <MyInfo userProfile={userProfile} />
+            <MyInfo
+                userProfile={userProfile}
+                userStatus={userStatus}
+                updateUserStatus={updateUserStatus}
+            />
             <MyPostsContainer />
         </div>
     );

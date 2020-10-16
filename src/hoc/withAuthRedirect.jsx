@@ -4,10 +4,7 @@ import { Redirect } from 'react-router-dom';
 
 const withAuthRedirect = (Component) => {
     const WrapperComponent = (props) => {
-        debugger;
         if (!props.isAuth) return <Redirect to='/login' />;
-
-        console.log('red');
         return <Component {...props} />;
     };
 

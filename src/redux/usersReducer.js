@@ -1,6 +1,6 @@
 import { setIsLoading, setTotalUsersCount, setUsers, toggleFollowingInProgress, followSuccess, unfollowSuccess } from './actionCreators';
 import * as ActionTypes from './actionTypes';
-import usersApi from '../api/api';
+import { usersApi } from '../api/api';
 
 const initialState = {
     users: [],

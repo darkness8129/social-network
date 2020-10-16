@@ -3,7 +3,7 @@ import styles from './MyInfo.module.css';
 import Avatar from './Avatar/Avatar';
 import MyInfoText from './MyInfoText/MyInfoText';
 
-const MyInfo = ({ userProfile }) => {
+const MyInfo = ({ userProfile, userStatus, updateUserStatus }) => {
     return (
         <div className={styles.myInfo}>
             <Avatar avatarImg={userProfile.photos.small} />
@@ -15,6 +15,8 @@ const MyInfo = ({ userProfile }) => {
                     userProfile.lookingForAJobDescription
                 }
                 contacts={userProfile.contacts}
+                userStatus={userStatus}
+                updateUserStatus={updateUserStatus}
             />
         </div>
     );

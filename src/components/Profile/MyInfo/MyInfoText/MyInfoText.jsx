@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './MyInfoText.module.css';
+import Status from './Status';
 
 const MyInfoText = ({
     about,
@@ -7,6 +8,8 @@ const MyInfoText = ({
     lookingForAJob,
     lookingForAJobDescription,
     contacts,
+    userStatus,
+    updateUserStatus,
 }) => {
     let contactsItems = [];
     for (let key in contacts) {
@@ -29,6 +32,12 @@ const MyInfoText = ({
                 <li>
                     Contacts:
                     <ul>{contactsItems}</ul>
+                </li>
+                <li>
+                    <Status
+                        userStatus={userStatus}
+                        updateUserStatus={updateUserStatus}
+                    />
                 </li>
             </ul>
         </div>
