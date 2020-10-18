@@ -1,22 +1,15 @@
 import * as ActionTypes from './../redux/actionTypes';
 
-//profile
-export const sendMessage = () => ({ type: ActionTypes.SEND_MESSAGE });
-export const changeNewMessageText = (messageText) => ({
-    type: ActionTypes.CHANGE_NEW_MESSAGE_TEXT,
-    messageText
-});
+//dialogs
+export const sendMessage = (newMessageBody) => ({ type: ActionTypes.SEND_MESSAGE, newMessageBody });
 
+//profile
 export const setUserProfile = (userProfile) => ({
     type: ActionTypes.SET_USER_PROFILE,
     userProfile
 });
 
-export const addPost = () => ({ type: ActionTypes.ADD_POST });
-export const changeNewPostText = (text) => ({
-    type: ActionTypes.CHANGE_NEW_POST_TEXT,
-    text
-});
+export const addPost = (newPostBody) => ({ type: ActionTypes.ADD_POST, newPostBody });
 
 export const setProfileIsLoading = (isLoading) => ({
     type: ActionTypes.SET_PROFILE_IS_LOADING,
@@ -60,7 +53,12 @@ export const toggleFollowingInProgress = (isLoading, userId) => ({
 });
 
 //header
-export const setUserAuth = (userId, email, login) => ({
+export const setUserAuth = (userId, email, login, isAuth) => ({
     type: ActionTypes.SET_USER_AUTH,
-    data: { userId, email, login }
+    data: { userId, email, login, isAuth }
+});
+
+// app
+export const initializeSuccess = () => ({
+    type: ActionTypes.INITIALIZE_SUCCESS
 });

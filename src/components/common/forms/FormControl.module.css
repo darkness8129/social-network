@@ -1,0 +1,10 @@
+.formErrorMessage {
+    display: block;
+    color: red;
+}
+.formError {
+    border: 2px red solid;
+}
+.groupError {
+    color: red;
+}

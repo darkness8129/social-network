@@ -7,29 +7,50 @@ import DialogsContainer from './components/Dialogs/DialogsContainer';
 import News from './components/News/News';
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 import UsersContainer from './components/Users/UsersContainer';
-import Login from './components/Login/Login';
+import LoginContainer from './components/Login/LoginContainer';
+import { initialize } from './redux/appReducer';
+import Preloader from './components/Preloader/Preloader';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
 
-const App = () => {
-    return (
-        <div className="app">
-            <HeaderContainer />
-            <Navbar />
+class App extends React.Component {
+    componentDidMount() {
+        debugger
+        this.props.initialize();
+    }
+    render() {
+        if (!this.props.initialized) {
+            return <Preloader />
+        } else {
+            return (
+                <div className="app" >
+                    <HeaderContainer />
+                    <Navbar />
 
-            <div className="content">
-                <Switch>
-                    <Route path='/profile/:userId?' render={() => <ProfileContainer />} />
-                    <Route exact path='/dialogs' render={() => <DialogsContainer />} />
-                    <Route path='/news' component={News} />
-                    <Route path='/music' component={Music} />
-                    <Route path='/settings' component={Settings} />
-                    <Route path='/users' component={UsersContainer} />
-                    <Route path='/login' component={Login} />
-                </Switch>
-            </div>
-        </div>
-    );
+                    <div className="content">
+                        <Switch>
+                            <Route path='/profile/:userId?' render={() => <ProfileContainer />} />
+                            <Route exact path='/dialogs' render={() => <DialogsContainer />} />
+                            <Route path='/news' component={News} />
+                            <Route path='/music' component={Music} />
+                            <Route path='/settings' component={Settings} />
+                            <Route path='/users' component={UsersContainer} />
+                            <Route path='/login' component={LoginContainer} />
+                        </Switch>
+                    </div>
+                </div>
+            );
+        }
+    }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+    return {
+        initialized: state.app.initialized
+    }
+}
+
+export default compose(withRouter,
+    connect(mapStateToProps, { initialize }))(App);

@@ -7,7 +7,6 @@ const initialState = {
         { postText: 'Test post 2', id: 2 },
         { postText: 'Test post 3', id: 3 },
     ],
-    newPostText: '',
     userProfile: null,
     isLoading: false,
     userStatus: ''
@@ -18,11 +17,8 @@ const profileReducer = (state = initialState, action) => {
         case ActionTypes.ADD_POST:
             return {
                 ...state,
-                posts: [...state.posts, { id: 5, postText: state.newPostText }],
-                newPostText: ''
+                posts: [...state.posts, { id: 5, postText: action.newPostBody }],
             };
-        case ActionTypes.CHANGE_NEW_POST_TEXT:
-            return { ...state, newPostText: action.text };
         case ActionTypes.SET_USER_PROFILE:
             return { ...state, userProfile: action.userProfile };
         case ActionTypes.SET_PROFILE_IS_LOADING:

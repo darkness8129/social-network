@@ -2,13 +2,31 @@ import React from 'react';
 import styles from './Dialogs.module.css';
 import DialogsItem from './DialogsItem/DialogsItem';
 import Message from './Message/Message';
-const Dialogs = ({
-    dialogs,
-    messages,
-    sendMessage,
-    changeNewMessageText,
-    newMessageText,
-}) => {
+import { Field, reduxForm } from 'redux-form';
+import { Input } from './../common/forms/FormControl';
+import { maxLength, required } from '../../utils/validators/validators';
+
+const maxLength15 = maxLength(15);
+
+const DialogMessageForm = ({ handleSubmit }) => {
+    return (
+        <form onSubmit={handleSubmit}>
+            <Field
+                component={Input}
+                placeholder='Enter your message'
+                name='newMessageBody'
+                validate={[required, maxLength15]}
+            />
+            <button>Send message</button>
+        </form>
+    );
+};
+
+const ReduxDialogMessageForm = reduxForm({
+    form: 'dialogMessageForm',
+})(DialogMessageForm);
+
+const Dialogs = ({ dialogs, messages, sendMessage }) => {
     const dialogsItems = dialogs.map((dialog) => {
         return (
             <DialogsItem name={dialog.name} id={dialog.id} key={dialog.id} />
@@ -19,13 +37,8 @@ const Dialogs = ({
         return <Message messageText={message.messageText} key={message.id} />;
     });
 
-    const handleSendMessage = () => {
-        sendMessage();
-    };
-
-    const handleChangeNewMessageText = (e) => {
-        let messageText = e.target.value;
-        changeNewMessageText(messageText);
+    const onSendMessage = (values) => {
+        sendMessage(values.newMessageBody);
     };
 
     return (
@@ -33,11 +46,7 @@ const Dialogs = ({
             <div className={styles.dialogsItems}>{dialogsItems}</div>
             <div className={styles.messages}>
                 {messagesItems}
-                <textarea
-                    onChange={handleChangeNewMessageText}
-                    value={newMessageText}
-                ></textarea>
-                <button onClick={handleSendMessage}>send message</button>
+                <ReduxDialogMessageForm onSubmit={onSendMessage} />
             </div>
         </div>
     );

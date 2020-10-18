@@ -13,6 +13,12 @@ class Status extends React.Component {
         status: this.props.userStatus,
     };
 
+    componentDidUpdate(prevProps) {
+        if (prevProps.userStatus !== this.props.userStatus) {
+            this.setState({ status: this.props.userStatus });
+        }
+    }
+
     activeEditMode = () => {
         this.setState({ editMode: true });
     };

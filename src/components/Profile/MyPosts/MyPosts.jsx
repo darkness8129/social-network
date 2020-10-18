@@ -1,23 +1,40 @@
 import React from 'react';
 import styles from './MyPosts.module.css';
 import Post from './Post/Post';
+import { Field, reduxForm } from 'redux-form';
+import { Textarea } from '../../common/forms/FormControl';
+import { maxLength, required } from '../../../utils/validators/validators';
 
-const MyPosts = ({ posts, newPostText, addPost, changeNewPostText }) => {
-    const handleNewPostTextChange = (e) => {
-        let text = e.target.value;
-        changeNewPostText(text);
+const maxLength30 = maxLength(30);
+
+const NewPostForm = ({ handleSubmit }) => {
+    return (
+        <form onSubmit={handleSubmit}>
+            <Field
+                placeholder='Your post...'
+                className={styles.postInput}
+                component={Textarea}
+                name='newPostBody'
+                validate={[required, maxLength30]}
+            />
+            <button>Add post</button>
+        </form>
+    );
+};
+
+const ReduxNewPostForm = reduxForm({
+    form: 'newPostForm',
+})(NewPostForm);
+
+const MyPosts = ({ posts, addPost }) => {
+    const onAddPost = (values) => {
+        addPost(values.newPostBody);
     };
 
     return (
         <div>
             <h2 className='title'>My posts</h2>
-            <textarea
-                placeholder='your news...'
-                className={styles.postInput}
-                onChange={handleNewPostTextChange}
-                value={newPostText}
-            />
-            <button onClick={addPost}>Add post</button>
+            <ReduxNewPostForm onSubmit={onAddPost} />
             <div>
                 {posts.map((post) => {
                     return <Post postText={post.postText} key={post.id} />;
