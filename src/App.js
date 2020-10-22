@@ -17,7 +17,6 @@ import { compose } from 'redux';
 
 class App extends React.Component {
     componentDidMount() {
-        debugger
         this.props.initialize();
     }
     render() {

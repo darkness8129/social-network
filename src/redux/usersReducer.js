@@ -51,7 +51,7 @@ const usersReducer = (state = initialState, action) => {
     }
 }
 
-export const getUsers = (currentPage, pageSize) => (dispatch) => {
+export const requestUsers = (currentPage, pageSize) => (dispatch) => {
     dispatch(setIsLoading(true));
 
     usersApi

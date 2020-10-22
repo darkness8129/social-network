@@ -7,7 +7,9 @@ const FormControl = (Element) => ({ input, meta, ...props }) => {
             <Element
                 {...input}
                 {...props}
-                className={meta.touched && meta.error && styles.formError}
+                className={
+                    meta.touched && meta.error ? styles.formError : undefined
+                }
             />
             {meta.touched && meta.error && (
                 <span className={styles.formErrorMessage}>{meta.error}</span>
