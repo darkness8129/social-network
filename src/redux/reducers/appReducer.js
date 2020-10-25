@@ -14,11 +14,9 @@ const appReducer = (state = initialState, action) => {
             return state;
     }
 }
-export const initialize = () => (dispatch) => {
-    dispatch(getAuth())
-        .then(() => {
-            dispatch(initializeSuccess())
-        })
+export const initialize = () => async (dispatch) => {
+    await dispatch(getAuth());
+    dispatch(initializeSuccess());
 }
 
 export default appReducer;

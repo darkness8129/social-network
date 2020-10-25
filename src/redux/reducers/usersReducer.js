@@ -51,44 +51,42 @@ const usersReducer = (state = initialState, action) => {
     }
 }
 
-export const requestUsers = (currentPage, pageSize) => (dispatch) => {
+export const requestUsers = (currentPage, pageSize) => async (dispatch) => {
     dispatch(setIsLoading(true));
 
-    usersApi
-        .getUsers(currentPage, pageSize)
-        .then((data) => {
-            dispatch(setUsers(data.items));
-            dispatch(setTotalUsersCount(data.totalCount));
-            dispatch(setIsLoading(false));
-        });
+    const data = await usersApi.getUsers(currentPage, pageSize)
+
+    dispatch(setUsers(data.items));
+    dispatch(setTotalUsersCount(data.totalCount));
+    dispatch(setIsLoading(false));
 }
 
-export const follow = userId => dispatch => {
+export const follow = userId => async (dispatch) => {
     dispatch(toggleFollowingInProgress(true, userId));
 
-    usersApi.follow(userId).then((data) => {
-        if (data.resultCode === 0) {
-            dispatch(followSuccess(userId));
-        }
-        dispatch(toggleFollowingInProgress(
-            false,
-            userId
-        ));
-    });
+    const data = await usersApi.follow(userId);
+
+    if (data.resultCode === 0) {
+        dispatch(followSuccess(userId));
+    }
+    dispatch(toggleFollowingInProgress(
+        false,
+        userId
+    ));
 }
 
-export const unfollow = userId => dispatch => {
+export const unfollow = userId => async (dispatch) => {
     dispatch(toggleFollowingInProgress(true, userId));
 
-    usersApi.unfollow(userId).then((data) => {
-        if (data.resultCode === 0) {
-            dispatch(unfollowSuccess(userId));
-        }
-        dispatch(toggleFollowingInProgress(
-            false,
-            userId
-        ));
-    });
+    const data = await usersApi.unfollow(userId);
+
+    if (data.resultCode === 0) {
+        dispatch(unfollowSuccess(userId));
+    }
+    dispatch(toggleFollowingInProgress(
+        false,
+        userId
+    ));
 }
 
 export default usersReducer;

@@ -30,26 +30,27 @@ const profileReducer = (state = initialState, action) => {
     }
 }
 
-export const requestUserProfile = userId => dispatch => {
+export const requestUserProfile = userId => async (dispatch) => {
     dispatch(setProfileIsLoading(true));
-    userProfileApi.getUserProfile(userId).then((data) => {
-        dispatch(setProfileIsLoading(false));
-        dispatch(setUserProfile(data));
-    });
+
+    const data = await userProfileApi.getUserProfile(userId);
+
+    dispatch(setProfileIsLoading(false));
+    dispatch(setUserProfile(data));
 }
 
-export const requestUserStatus = userId => dispatch => {
-    userProfileApi.getStatus(userId).then((data) => {
-        dispatch(setUserStatus(data));
-    })
+export const requestUserStatus = userId => async (dispatch) => {
+    const data = await userProfileApi.getStatus(userId);
+
+    dispatch(setUserStatus(data));
 }
 
-export const updateUserStatus = (status) => (dispatch) => {
-    userProfileApi.updateStatus(status).then((data) => {
-        if (data.resultCode === 0) {
-            dispatch(setUserStatus(status));
-        }
-    })
+export const updateUserStatus = (status) => async (dispatch) => {
+    const data = await userProfileApi.updateStatus(status);
+
+    if (data.resultCode === 0) {
+        dispatch(setUserStatus(status));
+    }
 }
 
 export default profileReducer;
