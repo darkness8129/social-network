@@ -6,7 +6,11 @@ import {
     setCurrentPage,
     toggleFollowingInProgress,
 } from './../../redux/actionCreators';
-import { requestUsers, follow, unfollow } from '../../redux/usersReducer';
+import {
+    requestUsers,
+    follow,
+    unfollow,
+} from '../../redux/reducers/usersReducer';
 import {
     getCurrentPage,
     getPageSize,
@@ -14,7 +18,7 @@ import {
     getTotalUsersCount,
     getIsLoading,
     getFollowingInProgress,
-} from '../../redux/usersSelectors';
+} from '../../redux/selectors/usersSelectors';
 
 class UsersContainer extends React.Component {
     constructor(props) {

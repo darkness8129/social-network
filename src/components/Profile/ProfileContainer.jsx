@@ -2,13 +2,20 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import {
-    getUserProfile,
-    getUserStatus,
+    requestUserProfile,
+    requestUserStatus,
     updateUserStatus,
-} from '../../redux/profileReducer';
+} from '../../redux/reducers/profileReducer';
 import Profile from './Profile';
 import Preloader from '../Preloader/Preloader';
 import { compose } from 'redux';
+import {
+    getUserProfile,
+    getIsLoading,
+    getUserStatus,
+    getAuthorizedUserId,
+    getIsAuth,
+} from '../../redux/selectors/profileSelectors';
 
 class ProfileContainer extends React.Component {
     componentDidMount() {
@@ -20,8 +27,8 @@ class ProfileContainer extends React.Component {
             this.props.history.push('/login');
         }
 
-        this.props.getUserProfile(userId);
-        this.props.getUserStatus(userId);
+        this.props.requestUserProfile(userId);
+        this.props.requestUserStatus(userId);
     }
 
     render() {
@@ -39,18 +46,18 @@ class ProfileContainer extends React.Component {
 
 const mapDispatchToProps = (state) => {
     return {
-        userProfile: state.profilePage.userProfile,
-        isLoading: state.profilePage.isLoading,
-        userStatus: state.profilePage.userStatus,
-        authorizedUserId: state.authReducer.userId,
-        isAuth: state.authReducer.isAuth,
+        userProfile: getUserProfile(state),
+        isLoading: getIsLoading(state),
+        userStatus: getUserStatus(state),
+        authorizedUserId: getAuthorizedUserId(state),
+        isAuth: getIsAuth(state),
     };
 };
 
 export default compose(
     connect(mapDispatchToProps, {
-        getUserProfile,
-        getUserStatus,
+        requestUserProfile,
+        requestUserStatus,
         updateUserStatus,
     }),
     withRouter

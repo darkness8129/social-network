@@ -1,6 +1,6 @@
-import * as ActionTypes from './actionTypes';
-import { setUserAuth } from './actionCreators';
-import { authApi } from './../api/api';
+import * as ActionTypes from './../actionTypes';
+import { setUserAuth } from './../actionCreators';
+import { authApi } from './../../api/api';
 import { stopSubmit } from 'redux-form';
 
 const initialState = {

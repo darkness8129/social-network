@@ -1,6 +1,6 @@
-import * as ActionTypes from './actionTypes';
-import { setProfileIsLoading, setUserProfile, setUserStatus } from './actionCreators';
-import { userProfileApi } from './../api/api';
+import * as ActionTypes from '../actionTypes';
+import { setProfileIsLoading, setUserProfile, setUserStatus } from '../actionCreators';
+import { userProfileApi } from '../../api/api';
 const initialState = {
     posts: [
         { postText: 'Test post 1', id: 1 },
@@ -30,7 +30,7 @@ const profileReducer = (state = initialState, action) => {
     }
 }
 
-export const getUserProfile = userId => dispatch => {
+export const requestUserProfile = userId => dispatch => {
     dispatch(setProfileIsLoading(true));
     userProfileApi.getUserProfile(userId).then((data) => {
         dispatch(setProfileIsLoading(false));
@@ -38,7 +38,7 @@ export const getUserProfile = userId => dispatch => {
     });
 }
 
-export const getUserStatus = userId => dispatch => {
+export const requestUserStatus = userId => dispatch => {
     userProfileApi.getStatus(userId).then((data) => {
         dispatch(setUserStatus(data));
     })

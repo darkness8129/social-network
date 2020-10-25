@@ -1,5 +1,5 @@
-import * as ActionTypes from './actionTypes';
-import { initializeSuccess } from './actionCreators';
+import * as ActionTypes from '../actionTypes';
+import { initializeSuccess } from '../actionCreators';
 import { getAuth } from './authReducer';
 
 const initialState = {
