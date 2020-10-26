@@ -5,7 +5,7 @@ import Preloader from './../Preloader/Preloader';
 import {
     setCurrentPage,
     toggleFollowingInProgress,
-} from './../../redux/actionCreators';
+} from './../../redux/reducers/usersReducer';
 import {
     requestUsers,
     follow,

@@ -24,11 +24,13 @@ const Status = ({ userStatus, updateUserStatus }) => {
 
     return (
         <div>
-            Status:
             {!editMode ? (
                 <div>
+                    Status:
                     <span onDoubleClick={activeEditMode}>
-                        {userStatus ? userStatus : '---'}
+                        {userStatus
+                            ? userStatus
+                            : 'This user do not have a status '}
                     </span>
                 </div>
             ) : (

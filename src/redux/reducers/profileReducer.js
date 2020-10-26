@@ -1,6 +1,6 @@
-import * as ActionTypes from '../actionTypes';
-import { setProfileIsLoading, setUserProfile, setUserStatus } from '../actionCreators';
 import { userProfileApi } from '../../api/api';
+
+// Initial State
 const initialState = {
     posts: [
         { postText: 'Test post 1', id: 1 },
@@ -12,24 +12,50 @@ const initialState = {
     userStatus: ''
 };
 
+// Action Types
+const SET_USER_PROFILE = 'social-network/profile/SET_USER_PROFILE';
+const ADD_POST = 'social-network/profile/ADD_POST';
+const SET_PROFILE_IS_LOADING = 'social-network/profile/SET_PROFILE_IS_LOADING';
+const SET_USER_STATUS = 'social-network/profile/SET_USER_STATUS';
+
+// Reducer
 const profileReducer = (state = initialState, action) => {
     switch (action.type) {
-        case ActionTypes.ADD_POST:
+        case ADD_POST:
             return {
                 ...state,
                 posts: [...state.posts, { id: 5, postText: action.newPostBody }],
             };
-        case ActionTypes.SET_USER_PROFILE:
+        case SET_USER_PROFILE:
             return { ...state, userProfile: action.userProfile };
-        case ActionTypes.SET_PROFILE_IS_LOADING:
+        case SET_PROFILE_IS_LOADING:
             return { ...state, isLoading: action.isLoading };
-        case ActionTypes.SET_USER_STATUS:
+        case SET_USER_STATUS:
             return { ...state, userStatus: action.userStatus };
         default:
             return state;
     }
 }
 
+// Action Creators
+export const setUserProfile = (userProfile) => ({
+    type: SET_USER_PROFILE,
+    userProfile
+});
+
+export const addPost = (newPostBody) => ({ type: ADD_POST, newPostBody });
+
+export const setProfileIsLoading = (isLoading) => ({
+    type: SET_PROFILE_IS_LOADING,
+    isLoading
+});
+
+export const setUserStatus = (userStatus) => ({
+    type: SET_USER_STATUS,
+    userStatus
+});
+
+// Thunk Creators
 export const requestUserProfile = userId => async (dispatch) => {
     dispatch(setProfileIsLoading(true));
 

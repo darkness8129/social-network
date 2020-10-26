@@ -5,7 +5,7 @@ import {
     getDialogs,
     getMessages,
 } from '../../redux/selectors/dialogsSelectors';
-import { sendMessage } from './../../redux/actionCreators';
+import { sendMessage } from './../../redux/reducers/dialogsReducer';
 import Dialogs from './Dialogs';
 
 const mapStateToProps = (state) => {

@@ -1,5 +1,4 @@
-import * as ActionTypes from '../actionTypes';
-
+// Initial State
 const initialState = {
     dialogs: [
         { name: 'Sasha', id: 1 },
@@ -18,9 +17,13 @@ const initialState = {
     ]
 }
 
+// Action Types
+const SEND_MESSAGE = 'social-network/dialogs/SEND_MESSAGE';
+
+// Reducer
 const dialogsReducer = (state = initialState, action) => {
     switch (action.type) {
-        case ActionTypes.SEND_MESSAGE:
+        case SEND_MESSAGE:
             return {
                 ...state,
                 messages: [...state.messages, { messageText: action.newMessageBody, id: 4 }]
@@ -29,5 +32,8 @@ const dialogsReducer = (state = initialState, action) => {
             return state;
     }
 }
+
+// Action Creators
+export const sendMessage = (newMessageBody) => ({ type: SEND_MESSAGE, newMessageBody });
 
 export default dialogsReducer;

@@ -1,8 +1,7 @@
-import * as ActionTypes from './../actionTypes';
-import { setUserAuth } from './../actionCreators';
 import { authApi } from './../../api/api';
 import { stopSubmit } from 'redux-form';
 
+// Initial State
 const initialState = {
     userId: null,
     email: null,
@@ -10,16 +9,26 @@ const initialState = {
     isAuth: false
 };
 
+// Action Types
+const SET_USER_AUTH = 'social-network/auth/SET_USER_AUTH';
+
+// Reducer
 const authReducer = (state = initialState, action) => {
     switch (action.type) {
-        case ActionTypes.SET_USER_AUTH:
+        case SET_USER_AUTH:
             return { ...state, ...action.data };
         default:
             return state;
     }
 }
 
-//should be return 
+// Action Creators
+export const setUserAuth = (userId, email, login, isAuth) => ({
+    type: SET_USER_AUTH,
+    data: { userId, email, login, isAuth }
+});
+
+//Thunk Creators
 export const getAuth = () => async (dispatch) => {
     const data = await authApi.getAuth();
 
