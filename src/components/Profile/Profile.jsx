@@ -5,7 +5,13 @@ import MyInfo from './MyInfo/MyInfo';
 import Background from './Background/Background';
 import Preloader from '../Preloader/Preloader';
 
-const Profile = ({ userProfile, userStatus, updateUserStatus }) => {
+const Profile = ({
+    userProfile,
+    userStatus,
+    updateUserStatus,
+    uploadAvatar,
+    isOwner,
+}) => {
     return !userProfile ? (
         <Preloader />
     ) : (
@@ -15,6 +21,8 @@ const Profile = ({ userProfile, userStatus, updateUserStatus }) => {
                 userProfile={userProfile}
                 userStatus={userStatus}
                 updateUserStatus={updateUserStatus}
+                uploadAvatar={uploadAvatar}
+                isOwner={isOwner}
             />
             <MyPostsContainer />
         </div>

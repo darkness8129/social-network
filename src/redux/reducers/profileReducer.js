@@ -17,6 +17,7 @@ const SET_USER_PROFILE = 'social-network/profile/SET_USER_PROFILE';
 const ADD_POST = 'social-network/profile/ADD_POST';
 const SET_PROFILE_IS_LOADING = 'social-network/profile/SET_PROFILE_IS_LOADING';
 const SET_USER_STATUS = 'social-network/profile/SET_USER_STATUS';
+const UPLOAD_AVATAR_SUCCESS = 'social-network/profile/UPLOAD_AVATAR_SUCCESS'
 
 // Reducer
 const profileReducer = (state = initialState, action) => {
@@ -32,6 +33,8 @@ const profileReducer = (state = initialState, action) => {
             return { ...state, isLoading: action.isLoading };
         case SET_USER_STATUS:
             return { ...state, userStatus: action.userStatus };
+        case UPLOAD_AVATAR_SUCCESS:
+            return { ...state, userProfile: { ...state.userProfile, photos: action.photos } };
         default:
             return state;
     }
@@ -55,6 +58,11 @@ export const setUserStatus = (userStatus) => ({
     userStatus
 });
 
+const uploadAvatarSuccess = (photos) => ({
+    type: UPLOAD_AVATAR_SUCCESS,
+    photos
+});
+
 // Thunk Creators
 export const requestUserProfile = userId => async (dispatch) => {
     dispatch(setProfileIsLoading(true));
@@ -76,6 +84,15 @@ export const updateUserStatus = (status) => async (dispatch) => {
 
     if (data.resultCode === 0) {
         dispatch(setUserStatus(status));
+    }
+}
+
+export const uploadAvatar = (photo) => async (dispatch) => {
+    const data = await userProfileApi.uploadAvatar(photo);
+    console.log(data);
+
+    if (data.resultCode === 0) {
+        dispatch(uploadAvatarSuccess(data.data.photos));
     }
 }
 

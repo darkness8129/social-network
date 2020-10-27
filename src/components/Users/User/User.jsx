@@ -24,10 +24,6 @@ const User = ({
             </Link>
             <div>{userName}</div>
             <div>{userStatus}</div>
-            <div>
-                <div>{'user.location.country'} </div>
-                <div>{'user.location.city'}</div>
-            </div>
             {followed === true ? (
                 <button
                     onClick={() => {

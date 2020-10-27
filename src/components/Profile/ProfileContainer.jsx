@@ -5,6 +5,7 @@ import {
     requestUserProfile,
     requestUserStatus,
     updateUserStatus,
+    uploadAvatar,
 } from '../../redux/reducers/profileReducer';
 import Profile from './Profile';
 import Preloader from '../Preloader/Preloader';
@@ -18,7 +19,7 @@ import {
 } from '../../redux/selectors/profileSelectors';
 
 class ProfileContainer extends React.Component {
-    componentDidMount() {
+    refreshProfile() {
         const userId = this.props.match.params.userId
             ? this.props.match.params.userId
             : this.props.authorizedUserId;
@@ -31,6 +32,16 @@ class ProfileContainer extends React.Component {
         this.props.requestUserStatus(userId);
     }
 
+    componentDidMount() {
+        this.refreshProfile();
+    }
+
+    componentDidUpdate(prevprops, prevstate) {
+        if (this.props.match.params.userId !== prevprops.match.params.userId) {
+            this.refreshProfile();
+        }
+    }
+
     render() {
         return this.props.isLoading ? (
             <Preloader />
@@ -39,6 +50,8 @@ class ProfileContainer extends React.Component {
                 userProfile={this.props.userProfile}
                 userStatus={this.props.userStatus}
                 updateUserStatus={this.props.updateUserStatus}
+                uploadAvatar={this.props.uploadAvatar}
+                isOwner={!this.props.match.params.userId}
             />
         );
     }
@@ -59,6 +72,7 @@ export default compose(
         requestUserProfile,
         requestUserStatus,
         updateUserStatus,
+        uploadAvatar,
     }),
     withRouter
 )(ProfileContainer);
