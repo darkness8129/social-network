@@ -1,5 +1,6 @@
 import * as axios from 'axios';
 
+// general settings of requests
 const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
     withCredentials: true,
@@ -9,82 +10,71 @@ const instance = axios.create({
     },
 })
 
+// for users page
 export const usersApi = {
-    getUsers(currentPage = 1, pageSize = 5) {
-        return instance
-            .get(
-                `users?page=${currentPage}&count=${pageSize}`
-            )
-            .then(response => response.data);
-
+    // get users from server (currentPage - page that we need, pageSize - number of users on one page)
+    async getUsers(currentPage = 1, pageSize = 5) {
+        const response = await instance.get(`users?page=${currentPage}&count=${pageSize}`);
+        return response.data;
     },
-    follow(userId) {
-        return instance
-            .post(
-                `follow/${userId}`
-            )
-            .then(response => response.data);
+    // follow user 
+    async follow(userId) {
+        const response = await instance.post(`follow/${userId}`);
+        return response.data;
     },
-    unfollow(userId) {
-        return instance
-            .delete(
-                `follow/${userId}`
-            )
-            .then(response => response.data);
+    // unfollow user
+    async unfollow(userId) {
+        const response = await instance.delete(`follow/${userId}`);
+        return response.data;
     }
 }
 
+// for auth
 export const authApi = {
-    getAuth() {
-        return instance
-            .get(
-                `auth/me`
-            )
-            .then(response => response.data)
+    // user is auth? 
+    async getAuth() {
+        const response = await instance.get(`auth/me`);
+        return response.data;
     },
-    login({ email, password, rememberMe = false }) {
-        return instance
-            .post('/auth/login', {
-                email, password, rememberMe
-            })
-            .then(response => response.data);
+    // login 
+    async login({ email, password, rememberMe = false }) {
+        const response = await instance.post('/auth/login',
+            { email, password, rememberMe });
+        return response.data;
     },
-    logout() {
-        return instance
-            .delete('/auth/login')
-            .then(response => response.data);
+    // logout
+    async logout() {
+        const response = await instance.delete('/auth/login');
+        return response.data;
     }
 }
 
+// for profile page
 export const userProfileApi = {
-    getUserProfile(userId) {
-        return instance
-            .get(
-                `profile/${userId}`
-            )
-            .then(response => response.data);
+    // get profile of user with userID
+    async getUserProfile(userId) {
+        const response = await instance.get(`profile/${userId}`)
+        return response.data;
     },
-    getStatus(userId) {
-        return instance
-            .get(`profile/status/${userId}`)
-            .then(response => response.data);;
+    // get status of user with userID
+    async getStatus(userId) {
+        const response = await instance.get(`profile/status/${userId}`);
+        return response.data;
     },
-    updateStatus(userStatus) {
-        return instance
-            .put('profile/status', {
-                status: userStatus
-            })
-            .then(response => response.data);
+    // update status(only if auth)
+    async updateStatus(userStatus) {
+        const response = await instance.put('profile/status', {
+            status: userStatus
+        })
+        return response.data;
     },
-    uploadAvatar(photo) {
+    // update user avatar(only if auth)
+    async uploadAvatar(photo) {
+        // we need form data, because we send file, not JSON
         const formData = new FormData();
+        // image - because api need this name
         formData.append('image', photo)
-        return instance
-            .put(`profile/photo`, formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            })
-            .then(response => response.data);
+        const response = await instance.put(`profile/photo`, formData);
+        return response.data;
     }
 }
