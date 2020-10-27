@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Users from './Users';
-import Preloader from './../Preloader/Preloader';
 import {
     setCurrentPage,
     toggleFollowingInProgress,
@@ -37,10 +36,9 @@ class UsersContainer extends React.Component {
     }
 
     render() {
-        return this.props.isLoading === true ? (
-            <Preloader />
-        ) : (
+        return (
             <Users
+                isLoading={this.props.isLoading}
                 users={this.props.users}
                 totalUsersCount={this.props.totalUsersCount}
                 pageSize={this.props.pageSize}
