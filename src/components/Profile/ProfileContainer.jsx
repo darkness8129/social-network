@@ -39,7 +39,11 @@ class ProfileContainer extends React.Component {
     }
 
     componentDidUpdate(prevprops, prevstate) {
-        if (this.props.match.params.userId !== prevprops.match.params.userId) {
+        if (
+            this.props.match.params.userId !== prevprops.match.params.userId ||
+            // when logout authorizedUserId changed but match.params.userId the same
+            this.props.authorizedUserId !== prevprops.authorizedUserId
+        ) {
             this.refreshProfile();
         }
     }
@@ -56,6 +60,7 @@ class ProfileContainer extends React.Component {
                 isOwner={!this.props.match.params.userId}
                 updateUserProfile={this.props.updateUserProfile}
                 profileUpdateSuccess={this.props.getProfileUpdateSuccess}
+                isAuth={this.props.isAuth}
             />
         );
     }

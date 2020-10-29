@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
 import styles from './../common/forms/FormControl.module.css';
 
-const LoginForm = ({ handleSubmit, error }) => {
+const LoginForm = ({ handleSubmit, error, captchaUrl }) => {
     return (
         <form onSubmit={handleSubmit}>
             <div>
@@ -26,6 +26,14 @@ const LoginForm = ({ handleSubmit, error }) => {
                     <span className={styles.groupError}>{error}</span>
                 </div>
             )}
+            {captchaUrl && <img src={captchaUrl} />}
+            {captchaUrl && (
+                <Field
+                    placeholder='Captcha symbols'
+                    component='input'
+                    name='captcha'
+                />
+            )}
 
             <div>
                 <button type='submit'>Login</button>
@@ -38,7 +46,7 @@ const ReduxLoginForm = reduxForm({
     form: 'login',
 })(LoginForm);
 
-const Login = ({ login, isAuth }) => {
+const Login = ({ login, isAuth, captchaUrl }) => {
     const onSubmit = (loginData) => {
         login(loginData);
     };
@@ -46,7 +54,7 @@ const Login = ({ login, isAuth }) => {
     return (
         <div>
             <h1>LOGIN</h1>
-            <ReduxLoginForm onSubmit={onSubmit} />
+            <ReduxLoginForm onSubmit={onSubmit} captchaUrl={captchaUrl} />
         </div>
     );
 };
