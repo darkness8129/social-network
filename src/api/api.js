@@ -31,7 +31,7 @@ export const usersApi = {
 
 // for auth
 export const authApi = {
-    // user is auth? 
+    // get id, email, login of user if auth
     async getAuth() {
         const response = await instance.get(`auth/me`);
         return response.data;
@@ -76,5 +76,10 @@ export const userProfileApi = {
         formData.append('image', photo)
         const response = await instance.put(`profile/photo`, formData);
         return response.data;
-    }
+    },
+    // update user profile
+    async updateUserProfile(updatedInfo) {
+        const response = await instance.put('profile', updatedInfo)
+        return response.data;
+    },
 }

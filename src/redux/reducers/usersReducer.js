@@ -22,6 +22,7 @@ const TOGGLE_FOLLOWING_IN_PROGRESS = 'social-network/users/TOGGLE_FOLLOWING_IN_P
 // Reducer
 const usersReducer = (state = initialState, action) => {
     switch (action.type) {
+        // NEED REFACTOR DUPLICATE CODE!
         case FOLLOW:
             return {
                 ...state, users: state.users.map((user) => {
@@ -102,6 +103,7 @@ export const requestUsers = (currentPage, pageSize) => async (dispatch) => {
     dispatch(setIsLoading(false));
 }
 
+// func to follow and unfollow to users, used in next thunk creators
 const followUnfollowFlow = async (dispatch, apiMethod, action, userId) => {
     const data = await apiMethod(userId);
     if (data.resultCode === 0) {

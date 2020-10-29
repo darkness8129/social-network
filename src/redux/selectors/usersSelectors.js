@@ -18,7 +18,6 @@ export const getIsLoading = (state) => {
     return state.usersPage.isLoading;
 }
 
-
 export const getFollowingInProgress = (state) => {
     return state.usersPage.followingInProgress;
 }

@@ -3,7 +3,7 @@ import React from 'react';
 import MyPostsContainer from './MyPosts/MyPostsContainer';
 import MyInfo from './MyInfo/MyInfo';
 import Background from './Background/Background';
-import Preloader from '../Preloader/Preloader';
+import Preloader from '../common/Preloader/Preloader';
 
 const Profile = ({
     userProfile,
@@ -11,6 +11,8 @@ const Profile = ({
     updateUserStatus,
     uploadAvatar,
     isOwner,
+    updateUserProfile,
+    profileUpdateSuccess,
 }) => {
     return !userProfile ? (
         <Preloader />
@@ -23,6 +25,8 @@ const Profile = ({
                 updateUserStatus={updateUserStatus}
                 uploadAvatar={uploadAvatar}
                 isOwner={isOwner}
+                updateUserProfile={updateUserProfile}
+                profileUpdateSuccess={profileUpdateSuccess}
             />
             <MyPostsContainer />
         </div>

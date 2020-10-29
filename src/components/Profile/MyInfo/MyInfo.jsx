@@ -2,6 +2,9 @@ import React from 'react';
 import styles from './MyInfo.module.css';
 import Avatar from './Avatar/Avatar';
 import MyInfoText from './MyInfoText/MyInfoText';
+import { useState } from 'react';
+import MyInfoForm from './MyInfoForm/MyInfoForm';
+import Status from './Status/Status';
 
 const MyInfo = ({
     userProfile,
@@ -9,7 +12,11 @@ const MyInfo = ({
     updateUserStatus,
     uploadAvatar,
     isOwner,
+    updateUserProfile,
+    profileUpdateSuccess,
 }) => {
+    const [editMode, setEditMode] = useState(false);
+
     const {
         aboutMe,
         fullName,
@@ -24,16 +31,35 @@ const MyInfo = ({
         }
     };
 
+    const submitEditing = (updatedInfo) => {
+        updateUserProfile(updatedInfo);
+        if (profileUpdateSuccess) {
+            setEditMode(false);
+        }
+    };
+
     return (
         <div className={styles.myInfo}>
             <Avatar avatarImg={userProfile.photos.small} />
             {isOwner && <input type='file' onChange={onAvatarChange} />}
-            <MyInfoText
-                about={aboutMe}
-                fullName={fullName}
-                lookingForAJob={lookingForAJob}
-                lookingForAJobDescription={lookingForAJobDescription}
-                contacts={contacts}
+            {editMode ? (
+                <MyInfoForm
+                    onSubmit={submitEditing}
+                    contacts={contacts}
+                    initialValues={userProfile}
+                />
+            ) : (
+                <MyInfoText
+                    about={aboutMe}
+                    fullName={fullName}
+                    lookingForAJob={lookingForAJob}
+                    lookingForAJobDescription={lookingForAJobDescription}
+                    contacts={contacts}
+                    isOwner={isOwner}
+                    enableEditMode={() => setEditMode(true)}
+                />
+            )}
+            <Status
                 userStatus={userStatus}
                 updateUserStatus={updateUserStatus}
             />

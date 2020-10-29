@@ -24,6 +24,7 @@ export const initializeSuccess = () => ({
 });
 
 // Thunk Creators
+// initialize app when user info loaded
 export const initialize = () => async (dispatch) => {
     await dispatch(getAuth());
     dispatch(initializeSuccess());

@@ -27,8 +27,6 @@ const ReduxNewPostForm = reduxForm({
 })(NewPostForm);
 
 const MyPosts = ({ posts, addPost }) => {
-    console.log('RENDER');
-    console.log(posts, addPost);
     const onAddPost = (values) => {
         addPost(values.newPostBody);
     };

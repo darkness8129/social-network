@@ -1,54 +1,31 @@
-import dialogsReducer from "./dialogsReducer";
-import profileReducer from "./profileReducer";
+import { applyMiddleware, combineReducers, createStore, compose } from 'redux';
+import dialogsReducer from './reducers/dialogsReducer';
+import profileReducer from './reducers/profileReducer';
+import usersReducer from './reducers/usersReducer';
+import authReducer from './reducers/authReducer';
+import appReducer from './reducers/appReducer';
+import { reducer as formReducer } from 'redux-form'
+import thunkMW from 'redux-thunk';
 
-let store = {
-    _state: {
-        dialogsPage: {
-            dialogs: [
-                { name: 'Sasha', id: 1 },
-                { name: 'Katya', id: 2 },
-                { name: 'Oleg', id: 3 },
-                { name: 'Anya', id: 4 },
-                { name: 'Alina', id: 5 },
-                { name: 'Lena', id: 6 },
-                { name: 'Dima', id: 7 },
-            ],
-            messages: [
-                { messageText: 'Hello', id: 1 },
-                { messageText: 'Hi', id: 2 },
-                { messageText: 'How are yo', id: 3 },
-                { messageText: 'ok', id: 4 },
-            ],
-            newMessageText: ''
+// all reducers
+const reducers = combineReducers({
+    profilePage: profileReducer,
+    dialogsPage: dialogsReducer,
+    usersPage: usersReducer,
+    authReducer,
+    // reducer for redux form
+    form: formReducer,
+    app: appReducer
+})
 
-        },
-        profilePage: {
-            posts: [
-                { postText: 'Test post 1', id: 1 },
-                { postText: 'Test post 2', id: 2 },
-                { postText: 'Test post 3', id: 3 },
-            ],
-            newPostText: '',
-        }
-    },
-    _callSubscriber() {
-        console.log('rerender');
-    },
+// with redux-devtools
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(reducers, composeEnhancers(applyMiddleware(thunkMW)));
 
-    getState() {
-        return this._state;
-    },
-    subscribe(observer) {
-        this._callSubscriber = observer;
-    },
+// without redux-devtools
+//const store = createStore(reducers, applyMiddleware(thunkMW));
 
-    dispatch(action) {
-        this._state.profilePage = profileReducer(this._state.profilePage, action);
-        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
-
-        this._callSubscriber(this._state);
-
-    }
-}
+// for tests
+window.store = store;
 
 export default store;

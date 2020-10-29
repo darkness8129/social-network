@@ -3,13 +3,10 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 const withAuthRedirect = (Component) => {
-    class WrapperComponent extends React.Component {
-        render() {
-            if (!this.props.isAuth) return <Redirect to='/login' />;
-
-            return <Component {...this.props} />;
-        }
-    }
+    const WrapperComponent = (props) => {
+        if (!props.isAuth) return <Redirect to='/login' />;
+        return <Component {...props} />;
+    };
 
     const mapStateToProps = (state) => {
         return {

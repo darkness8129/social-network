@@ -9,13 +9,14 @@ const Paginator = ({
     onPageChange,
     portionSize = 10,
 }) => {
+    let [currentPortion, setCurrentPortion] = useState(1);
+
     const numberOfPages = Math.ceil(totalItemsCount / pageSize);
     const numberOfPortions = Math.ceil(numberOfPages / portionSize);
-    let [currentPortion, setCurrentPortion] = useState(1);
     const leftBoundary = (currentPortion - 1) * portionSize + 1;
     const rightBoundary = currentPortion * portionSize;
-    const pages = [];
 
+    const pages = [];
     for (let i = 1; i <= numberOfPages; i++) {
         pages.push(i);
     }
@@ -23,6 +24,7 @@ const Paginator = ({
     const setNextPortion = () => {
         setCurrentPortion(currentPortion + 1);
     };
+
     const setPrevPortion = () => {
         setCurrentPortion(currentPortion - 1);
     };

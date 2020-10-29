@@ -17,3 +17,7 @@ export const getAuthorizedUserId = (state) => {
 export const getIsAuth = (state) => {
     return state.authReducer.isAuth;
 }
+
+export const getProfileUpdateSuccess = (state) => {
+    return state.profilePage.profileUpdateSuccess;
+}

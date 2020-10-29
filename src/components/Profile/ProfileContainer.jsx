@@ -4,11 +4,12 @@ import { withRouter } from 'react-router-dom';
 import {
     requestUserProfile,
     requestUserStatus,
+    updateUserProfile,
     updateUserStatus,
     uploadAvatar,
 } from '../../redux/reducers/profileReducer';
 import Profile from './Profile';
-import Preloader from '../Preloader/Preloader';
+import Preloader from '../common/Preloader/Preloader';
 import { compose } from 'redux';
 import {
     getUserProfile,
@@ -16,6 +17,7 @@ import {
     getUserStatus,
     getAuthorizedUserId,
     getIsAuth,
+    getProfileUpdateSuccess,
 } from '../../redux/selectors/profileSelectors';
 
 class ProfileContainer extends React.Component {
@@ -52,6 +54,8 @@ class ProfileContainer extends React.Component {
                 updateUserStatus={this.props.updateUserStatus}
                 uploadAvatar={this.props.uploadAvatar}
                 isOwner={!this.props.match.params.userId}
+                updateUserProfile={this.props.updateUserProfile}
+                profileUpdateSuccess={this.props.getProfileUpdateSuccess}
             />
         );
     }
@@ -64,6 +68,7 @@ const mapDispatchToProps = (state) => {
         userStatus: getUserStatus(state),
         authorizedUserId: getAuthorizedUserId(state),
         isAuth: getIsAuth(state),
+        profileUpdateSuccess: getProfileUpdateSuccess(state),
     };
 };
 
@@ -73,6 +78,7 @@ export default compose(
         requestUserStatus,
         updateUserStatus,
         uploadAvatar,
+        updateUserProfile,
     }),
     withRouter
 )(ProfileContainer);

@@ -11,7 +11,7 @@ import { Route, Switch, withRouter } from 'react-router-dom';
 import UsersContainer from './components/Users/UsersContainer';
 import LoginContainer from './components/Login/LoginContainer';
 import { initialize } from './redux/reducers/appReducer';
-import Preloader from './components/Preloader/Preloader';
+import Preloader from './components/common/Preloader/Preloader';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 

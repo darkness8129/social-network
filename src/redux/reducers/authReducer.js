@@ -38,11 +38,16 @@ export const getAuth = () => async (dispatch) => {
     }
 }
 
+// send email, login to the server
 export const login = (loginData) => async (dispatch) => {
     const data = await authApi.login(loginData);
+
     if (data.resultCode === 0) {
+        // get email, login, id do not have err with logging
         dispatch(getAuth());
     } else {
+        // need stop submit if have some errors with logging 
+        // to send err message in login form 
         const err = data.messages.length !== 0 ? data.messages[0] : 'some error';
         dispatch(stopSubmit('login', { _error: err }))
     }

@@ -24,6 +24,7 @@ const SEND_MESSAGE = 'social-network/dialogs/SEND_MESSAGE';
 const dialogsReducer = (state = initialState, action) => {
     switch (action.type) {
         case SEND_MESSAGE:
+            // FIX STATIC ID!
             return {
                 ...state,
                 messages: [...state.messages, { messageText: action.newMessageBody, id: 4 }]
