@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import Users from './Users';
 import {
@@ -19,39 +19,31 @@ import {
     getFollowingInProgress,
 } from '../../redux/selectors/usersSelectors';
 
-class UsersContainer extends React.Component {
-    constructor(props) {
-        super(props);
+const UsersContainer = (props) => {
+    useEffect(() => {
+        props.requestUsers(props.currentPage, props.pageSize);
+    }, []);
 
-        this.onPageChange = this.onPageChange.bind(this);
-    }
+    const onPageChange = (page) => {
+        props.setCurrentPage(page);
+        props.requestUsers(page, props.pageSize);
+    };
 
-    componentDidMount() {
-        this.props.requestUsers(this.props.currentPage, this.props.pageSize);
-    }
-
-    onPageChange(page) {
-        this.props.setCurrentPage(page);
-        this.props.requestUsers(page, this.props.pageSize);
-    }
-
-    render() {
-        return (
-            <Users
-                isLoading={this.props.isLoading}
-                users={this.props.users}
-                totalUsersCount={this.props.totalUsersCount}
-                pageSize={this.props.pageSize}
-                currentPage={this.props.currentPage}
-                onPageChange={this.onPageChange}
-                follow={this.props.follow}
-                unfollow={this.props.unfollow}
-                followingInProgress={this.props.followingInProgress}
-                toggleFollowingInProgress={this.props.toggleFollowingInProgress}
-            />
-        );
-    }
-}
+    return (
+        <Users
+            isLoading={props.isLoading}
+            users={props.users}
+            totalUsersCount={props.totalUsersCount}
+            pageSize={props.pageSize}
+            currentPage={props.currentPage}
+            onPageChange={onPageChange}
+            follow={props.follow}
+            unfollow={props.unfollow}
+            followingInProgress={props.followingInProgress}
+            toggleFollowingInProgress={props.toggleFollowingInProgress}
+        />
+    );
+};
 
 const mapStateToProps = (state) => {
     return {

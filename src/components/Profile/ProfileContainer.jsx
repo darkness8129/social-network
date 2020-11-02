@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import {
@@ -20,51 +20,39 @@ import {
     getProfileUpdateSuccess,
 } from '../../redux/selectors/profileSelectors';
 
-class ProfileContainer extends React.Component {
-    refreshProfile() {
-        const userId = this.props.match.params.userId
-            ? this.props.match.params.userId
-            : this.props.authorizedUserId;
+const ProfileContainer = (props) => {
+    const refreshProfile = () => {
+        const userId = props.match.params.userId
+            ? props.match.params.userId
+            : props.authorizedUserId;
 
         if (!userId) {
-            this.props.history.push('/login');
+            props.history.push('/login');
+        } else {
+            props.requestUserProfile(userId);
+            props.requestUserStatus(userId);
         }
+    };
 
-        this.props.requestUserProfile(userId);
-        this.props.requestUserStatus(userId);
-    }
+    useEffect(() => {
+        refreshProfile();
+    }, [props.match.params.userId, props.authorizedUserId]);
 
-    componentDidMount() {
-        this.refreshProfile();
-    }
-
-    componentDidUpdate(prevprops, prevstate) {
-        if (
-            this.props.match.params.userId !== prevprops.match.params.userId ||
-            // when logout authorizedUserId changed but match.params.userId the same
-            this.props.authorizedUserId !== prevprops.authorizedUserId
-        ) {
-            this.refreshProfile();
-        }
-    }
-
-    render() {
-        return this.props.isLoading ? (
-            <Preloader />
-        ) : (
-            <Profile
-                userProfile={this.props.userProfile}
-                userStatus={this.props.userStatus}
-                updateUserStatus={this.props.updateUserStatus}
-                uploadAvatar={this.props.uploadAvatar}
-                isOwner={!this.props.match.params.userId}
-                updateUserProfile={this.props.updateUserProfile}
-                profileUpdateSuccess={this.props.getProfileUpdateSuccess}
-                isAuth={this.props.isAuth}
-            />
-        );
-    }
-}
+    return props.isLoading ? (
+        <Preloader />
+    ) : (
+        <Profile
+            userProfile={props.userProfile}
+            userStatus={props.userStatus}
+            updateUserStatus={props.updateUserStatus}
+            uploadAvatar={props.uploadAvatar}
+            isOwner={!props.match.params.userId}
+            updateUserProfile={props.updateUserProfile}
+            profileUpdateSuccess={props.getProfileUpdateSuccess}
+            isAuth={props.isAuth}
+        />
+    );
+};
 
 const mapDispatchToProps = (state) => {
     return {

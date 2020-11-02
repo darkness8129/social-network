@@ -4,11 +4,9 @@ import { logout } from './../../redux/reducers/authReducer';
 import { connect } from 'react-redux';
 import { getIsAuth, getLogin } from '../../redux/selectors/headerSelectors';
 
-class HeaderContainer extends React.Component {
-    render() {
-        return <Header {...this.props} />;
-    }
-}
+const HeaderContainer = (props) => {
+    return <Header {...props} />;
+};
 
 const mapStateToProps = (state) => {
     return {

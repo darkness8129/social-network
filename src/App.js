@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 import HeaderContainer from './components/Header/HeaderContainer';
 import Navbar from './components/Navbar/Navbar';
@@ -15,34 +15,36 @@ import Preloader from './components/common/Preloader/Preloader';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 
-class App extends React.Component {
-    componentDidMount() {
-        this.props.initialize();
-    }
-    render() {
-        if (!this.props.initialized) {
-            return <Preloader />
-        } else {
-            return (
-                <div className="app" >
-                    <HeaderContainer />
-                    <Navbar />
+const App = (props) => {
 
-                    <div className="content">
-                        <Switch>
-                            <Route path='/profile/:userId?' render={() => <ProfileContainer />} />
-                            <Route exact path='/dialogs' render={() => <DialogsContainer />} />
-                            <Route path='/news' component={News} />
-                            <Route path='/music' component={Music} />
-                            <Route path='/settings' component={Settings} />
-                            <Route path='/users' component={UsersContainer} />
-                            <Route path='/login' component={LoginContainer} />
-                        </Switch>
-                    </div>
+    useEffect(() => {
+        props.initialize();
+    }, []);
+
+
+    if (!props.initialized) {
+        return <Preloader />
+    } else {
+        return (
+            <div className="app" >
+                <HeaderContainer />
+                <Navbar />
+
+                <div className="content">
+                    <Switch>
+                        <Route path='/profile/:userId?' render={() => <ProfileContainer />} />
+                        <Route exact path='/dialogs' render={() => <DialogsContainer />} />
+                        <Route path='/news' component={News} />
+                        <Route path='/music' component={Music} />
+                        <Route path='/settings' component={Settings} />
+                        <Route path='/users' component={UsersContainer} />
+                        <Route path='/login' component={LoginContainer} />
+                    </Switch>
                 </div>
-            );
-        }
+            </div>
+        );
     }
+
 }
 
 const mapStateToProps = (state) => {
