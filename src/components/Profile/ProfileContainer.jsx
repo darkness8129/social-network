@@ -66,12 +66,12 @@ const mapDispatchToProps = (state) => {
 };
 
 export default compose(
+    withRouter,
     connect(mapDispatchToProps, {
         requestUserProfile,
         requestUserStatus,
         updateUserStatus,
         uploadAvatar,
         updateUserProfile,
-    }),
-    withRouter
+    })
 )(ProfileContainer);

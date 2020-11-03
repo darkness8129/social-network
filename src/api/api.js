@@ -85,7 +85,6 @@ export const userProfileApi = {
 }
 
 // for security 
-
 export const securityApi = {
     // get captcha
     async getCaptchaUrl() {

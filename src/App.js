@@ -1,19 +1,23 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, Suspense } from 'react';
+import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+
 import './App.css';
+import { initialize } from './redux/reducers/appReducer';
+
 import HeaderContainer from './components/Header/HeaderContainer';
 import Navbar from './components/Navbar/Navbar';
 import ProfileContainer from './components/Profile/ProfileContainer';
-import DialogsContainer from './components/Dialogs/DialogsContainer';
-import News from './components/News/News';
-import Music from './components/Music/Music';
-import Settings from './components/Settings/Settings';
-import { Route, Switch, withRouter } from 'react-router-dom';
-import UsersContainer from './components/Users/UsersContainer';
 import LoginContainer from './components/Login/LoginContainer';
-import { initialize } from './redux/reducers/appReducer';
 import Preloader from './components/common/Preloader/Preloader';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
+import withSuspense from './hoc/withSuspense';
+
+const UsersContainer = React.lazy(() => import('./components/Users/UsersContainer'));
+const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
+const News = React.lazy(() => import('./components/News/News'));
+const Music = React.lazy(() => import('./components/Music/Music'));
+const Settings = React.lazy(() => import('./components/Settings/Settings'));
 
 const App = (props) => {
 
@@ -33,12 +37,13 @@ const App = (props) => {
                 <div className="content">
                     <Switch>
                         <Route path='/profile/:userId?' render={() => <ProfileContainer />} />
-                        <Route exact path='/dialogs' render={() => <DialogsContainer />} />
-                        <Route path='/news' component={News} />
-                        <Route path='/music' component={Music} />
-                        <Route path='/settings' component={Settings} />
-                        <Route path='/users' component={UsersContainer} />
+                        <Route path='/dialogs' render={withSuspense(DialogsContainer)} />
+                        <Route path='/news' render={withSuspense(News)} />
+                        <Route path='/music' render={withSuspense(Music)} />
+                        <Route path='/settings' render={withSuspense(Settings)} />
+                        <Route path='/users' render={withSuspense(UsersContainer)} />
                         <Route path='/login' component={LoginContainer} />
+                        <Redirect exact from='/' to='/profile' />
                     </Switch>
                 </div>
             </div>

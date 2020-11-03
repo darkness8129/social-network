@@ -110,14 +110,15 @@ export const updateUserProfile = (updatedInfo) => async (dispatch, getState) => 
 
     if (data.resultCode === 0) {
         const userId = getState().authReducer.userId;
+
         dispatch(setProfileUpdateSuccess(true));
         dispatch(requestUserProfile(userId));
     }
     else {
+        // err when wrong url in specific field
         const err = data.messages.length !== 0 ? data.messages[0] : 'some error';
+        // parse field from server err
         const field = err.substring(err.lastIndexOf('>') + 1, err.lastIndexOf(')')).toLowerCase();
-
-        console.log(field);
 
         dispatch(setProfileUpdateSuccess(false));
         dispatch(stopSubmit('editProfileForm', { 'contacts': { [field]: err } }))

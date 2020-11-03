@@ -109,6 +109,7 @@ const followUnfollowFlow = async (dispatch, apiMethod, action, userId) => {
     if (data.resultCode === 0) {
         dispatch(action(userId));
     }
+
     dispatch(toggleFollowingInProgress(
         false,
         userId
